@@ -10,4 +10,6 @@ import lombok.Setter;
 //@AllArgsConstructor
 //@NoArgsConstructor
 public class PostRequestDto {
+    private String title;
+    private String content;
 }
