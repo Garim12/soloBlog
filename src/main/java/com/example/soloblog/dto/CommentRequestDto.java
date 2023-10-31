@@ -7,7 +7,10 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
+//@AllArgsConstructor
+//@NoArgsConstructor
 public class CommentRequestDto {
+    private String username;
+    private String content;
+    private Long postId;
 }

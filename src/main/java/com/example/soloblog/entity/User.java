@@ -1,9 +1,6 @@
 package com.example.soloblog.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,6 +13,7 @@ import lombok.Setter;
 public class User {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column
@@ -32,5 +30,13 @@ public class User {
 
     @Column
     private String role;
+
+    public User(String username, String password, String nickname, String email, String role) {
+        this.username = username;
+        this.password = password;
+        this.nickname = nickname;
+        this.email = email;
+        this.role = role;
+    }
 
 }
