@@ -1,5 +1,6 @@
 package com.example.soloblog.dto;
 
+import com.example.soloblog.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,10 +16,10 @@ public class UserResponseDto {
     private String nickname;
     private String email;
 
-    public UserResponseDto(Long id, String username, String nickname, String email) {
-        this.id = id;
-        this.username = username;
-        this.nickname = nickname;
-        this.email = email;
+    public UserResponseDto(User user) {
+        this.id = user.getId();
+        this.username = user.getUsername();
+        this.nickname = user.getNickname();
+        this.email = user.getEmail();
     } // UserResponseDto() end
 }
