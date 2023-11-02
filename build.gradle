@@ -29,6 +29,7 @@ dependencies {
 
     //auth2
     implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+    implementation 'org.jetbrains:annotations:24.0.0'
 
     // JWT
     compileOnly group: 'io.jsonwebtoken', name: 'jjwt-api', version: '0.11.5'

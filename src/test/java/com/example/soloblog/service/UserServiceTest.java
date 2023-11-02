@@ -6,6 +6,7 @@ import com.example.soloblog.repository.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.annotation.Rollback;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -18,6 +19,9 @@ class UserServiceTest {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Test
     void signup() {
@@ -35,13 +39,13 @@ class UserServiceTest {
 
         //then
         String Username = userRepository.findByUsername("test").get().getUsername();
-        String Password = userRepository.findByUsername("test").get().getPassword();
+        String password = userRepository.findByUsername("test").get().getPassword();
         String Nickname = userRepository.findByUsername("test").get().getNickname();
         String Email = userRepository.findByUsername("test").get().getEmail();
         String Role = userRepository.findByUsername("test").get().getRole();
 
         assertThat(Username).isEqualTo(requestDto.getUsername());
-        assertThat(Password).isEqualTo(requestDto.getPassword());
+        passwordEncoder.matches(requestDto.getPassword(), password);
         assertThat(Nickname).isEqualTo(requestDto.getNickname());
         assertThat(Email).isEqualTo(requestDto.getEmail());
         assertThat(Role).isEqualTo(requestDto.getRole());
