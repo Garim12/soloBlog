@@ -92,10 +92,10 @@ class UserServiceTest {
                 .orElseThrow(() -> new IllegalArgumentException("해당 아이디가 존재하지 않습니다."));
 
         //when
-        userService.userDelete(user.getId());
+        userService.userDelete(user.getUsername());
 
         //then
-        assertThat(userRepository.findById(1L)).isEmpty();
+        assertThat(userRepository.findByUsername("test")).isEmpty();
     }
 
     @Test
@@ -115,9 +115,9 @@ class UserServiceTest {
                 .orElseThrow(() -> new IllegalArgumentException("해당 아이디가 존재하지 않습니다."));
 
         //when
-        userService.userDelete(200L);
+        userService.userDelete("testfail");
 
         //then
-        assertThat(userRepository.findById(1L)).isNotEmpty();
+        assertThat(userRepository.findByUsername("test")).isNotEmpty();
     }
 }

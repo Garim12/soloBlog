@@ -69,7 +69,7 @@ class UserControllerTest {
 
         //then
         this.mockMvc
-                .perform(post("/api/signup")
+                .perform(post("/api/users/signup")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(requestDto)))
                 .andExpect(status().isCreated())
@@ -92,7 +92,7 @@ class UserControllerTest {
 
         //then
         this.mockMvc
-                .perform(post("/api/signup")
+                .perform(post("/api/users/signup")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(requestDto)))
                 .andExpect(status().is4xxClientError())
@@ -115,7 +115,7 @@ class UserControllerTest {
 
         //then
         this.mockMvc
-                .perform(delete("/api/user/1"))
+                .perform(delete("/api/users/test"))
                 .andExpect(status().isOk())
                 .andDo(print());
     }
@@ -135,7 +135,7 @@ class UserControllerTest {
 
         //then
         this.mockMvc
-                .perform(delete("/api/user/200"))
+                .perform(delete("/api/users/testfail"))
                 .andExpect(status().is4xxClientError())
                 .andDo(print());
     }
