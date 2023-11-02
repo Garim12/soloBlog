@@ -4,16 +4,23 @@ import com.example.soloblog.dto.RestApiResponseDto;
 import com.example.soloblog.dto.UserRequestDto;
 import com.example.soloblog.dto.UserResponseDto;
 import com.example.soloblog.entity.User;
+import com.example.soloblog.jwt.JwtUtil;
 import com.example.soloblog.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationContext;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
+
+    private final PasswordEncoder passwordEncoder;
+    private final JwtUtil jwtUtil;
+    private final ApplicationContext applicationContext;
 
     public ResponseEntity<RestApiResponseDto> signup(UserRequestDto userDto) {
         try {
@@ -22,6 +29,7 @@ public class UserService {
             String nickname = userDto.getNickname();
             String email = userDto.getEmail();
             String role = userDto.getRole();
+
 
             if (userRepository.findByUsername(username).isPresent()) {
                 throw new IllegalArgumentException("아이디가 이미 존재합니다.");
@@ -33,7 +41,9 @@ public class UserService {
                 throw new IllegalArgumentException("이메일이 이미 존재합니다.");
             }
 
-            User user = new User(username, password, nickname, email, role);
+            String encodedPassword = passwordEncoder.encode(password);
+
+            User user = new User(username, encodedPassword, nickname, email, role);
 
             userRepository.save(user);
 
