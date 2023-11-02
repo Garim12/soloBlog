@@ -53,13 +53,13 @@ public class UserService {
         }
     }
 
-    public ResponseEntity<RestApiResponseDto> userDelete(String username) {
+    public ResponseEntity<RestApiResponseDto> userDelete(User user) {
         try {
-            User user = userRepository.findByUsername(username)
+            User users = userRepository.findByUsername(user.getUsername())
                     .orElseThrow(() -> new IllegalArgumentException("해당 아이디가 존재하지 않습니다."));
 
-            userRepository.delete(user);
-            return this.resultResponse(HttpStatus.OK, "회원탈퇴에 성공하였습니다.", new UserResponseDto(user));
+            userRepository.delete(users);
+            return this.resultResponse(HttpStatus.OK, "회원탈퇴에 성공하였습니다.", new UserResponseDto(users));
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(new RestApiResponseDto(HttpStatus.BAD_REQUEST.value(), e.getMessage()));
         }

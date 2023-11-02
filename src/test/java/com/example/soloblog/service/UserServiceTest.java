@@ -96,7 +96,7 @@ class UserServiceTest {
                 .orElseThrow(() -> new IllegalArgumentException("해당 아이디가 존재하지 않습니다."));
 
         //when
-        userService.userDelete(user.getUsername());
+        userService.userDelete(user);
 
         //then
         assertThat(userRepository.findByUsername("test")).isEmpty();
@@ -113,13 +113,14 @@ class UserServiceTest {
         requestDto.setEmail("test@test.com");
         requestDto.setRole("USER");
 
+
+        //when
+
         userService.signup(requestDto);
 
         User user = userRepository.findByUsername("test")
                 .orElseThrow(() -> new IllegalArgumentException("해당 아이디가 존재하지 않습니다."));
 
-        //when
-        userService.userDelete("testfail");
 
         //then
         assertThat(userRepository.findByUsername("test")).isNotEmpty();
