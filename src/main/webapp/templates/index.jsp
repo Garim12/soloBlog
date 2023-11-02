@@ -1,5 +1,7 @@
 <%@ page import="static org.eclipse.tags.shaded.org.apache.regexp.RETest.test" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
 <!DOCTYPE html>
 <html lang="ko-KR">
 <head>
@@ -46,4 +48,12 @@
             }
         %>
 </table>
+
+<sec:authorize access="isAuthenticated()">
+<div>인증된 사용자에게만 보이는 내용</div>
+</sec:authorize>
+
+<sec:authorize access="hasRole('ROLE_ADMIN')">
+<div>관리자에게만 보이는 내용</div>
+</sec:authorize>
 </html>
