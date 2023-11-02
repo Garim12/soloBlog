@@ -43,9 +43,9 @@ public class UserService {
         }
     }
 
-    public ResponseEntity<RestApiResponseDto> userDelete(Long id) {
+    public ResponseEntity<RestApiResponseDto> userDelete(String username) {
         try {
-            User user = userRepository.findById(id)
+            User user = userRepository.findByUsername(username)
                     .orElseThrow(() -> new IllegalArgumentException("해당 아이디가 존재하지 않습니다."));
 
             userRepository.delete(user);

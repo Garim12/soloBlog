@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/users")
 @RequiredArgsConstructor
 public class UserController {
 
@@ -22,9 +22,9 @@ public class UserController {
         return userService.signup(userDto);
     }
 
-    @DeleteMapping("/user/{id}")
-    public ResponseEntity<RestApiResponseDto> userDelete(@PathVariable Long id) {
-        log.info("Request to delete user: {}", id);
-        return userService.userDelete(id);
+    @DeleteMapping("/{username}")
+    public ResponseEntity<RestApiResponseDto> userDelete(@PathVariable String username) {
+        log.info("Request to delete user: {}", username);
+        return userService.userDelete(username);
     }
 }
