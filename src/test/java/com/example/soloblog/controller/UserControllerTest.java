@@ -2,10 +2,12 @@ package com.example.soloblog.controller;
 
 import com.example.soloblog.dto.UserRequestDto;
 import com.example.soloblog.entity.User;
+import com.example.soloblog.entity.UserRoleEnum;
 import com.example.soloblog.repository.UserRepository;
 import com.example.soloblog.security.UserDetailsServiceImpl;
 import com.example.soloblog.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.servlet.ServletException;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -13,6 +15,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.support.DefaultMessageSourceResolvable;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.MediaType;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.test.context.support.TestExecutionEvent;
@@ -52,7 +56,7 @@ class UserControllerTest {
     @Autowired
     PasswordEncoder passwordEncoder;
 
-    private ObjectMapper objectMapper = new ObjectMapper();
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
     @Autowired
     private WebApplicationContext wac;
@@ -70,13 +74,12 @@ class UserControllerTest {
     @BeforeEach
     @Transactional
     public void login() {
-
         User user = new User();
         user.setUsername("test2");
-        user.setPassword(passwordEncoder.encode("test2"));
+        user.setPassword(passwordEncoder.encode("test234556"));
         user.setNickname("test2");
         user.setEmail("test2@test.com");
-        user.setRole("USER");
+        user.setRole(UserRoleEnum.USER);
         User save = userRepository.save(user);
     }
 
@@ -94,11 +97,10 @@ class UserControllerTest {
         UserRequestDto requestDto = new UserRequestDto();
 
         //when
-        requestDto.setUsername("test");
-        requestDto.setPassword("test");
-        requestDto.setNickname("test");
+        requestDto.setUsername("test1");
+        requestDto.setPassword("test123456");
+        requestDto.setNickname("test1");
         requestDto.setEmail("test@test.com");
-        requestDto.setRole("USER");
 
         //then
         this.mockMvc
@@ -121,8 +123,6 @@ class UserControllerTest {
         requestDto.setPassword("test");
         requestDto.setNickname("test");
         requestDto.setEmail("test@test.com");
-        requestDto.setRole("USER");
-        userService.signup(requestDto);
 
         //then
         this.mockMvc

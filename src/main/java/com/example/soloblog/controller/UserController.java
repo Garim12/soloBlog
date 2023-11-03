@@ -4,6 +4,7 @@ import com.example.soloblog.dto.RestApiResponseDto;
 import com.example.soloblog.dto.UserRequestDto;
 import com.example.soloblog.security.UserDetailsImpl;
 import com.example.soloblog.service.UserService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +20,7 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/signup")
-    public ResponseEntity<RestApiResponseDto> signup(@RequestBody UserRequestDto userDto) {
+    public ResponseEntity<RestApiResponseDto> signup(@RequestBody @Valid UserRequestDto userDto) {
         log.info("Request to signup user: {}", userDto);
         return userService.signup(userDto);
     }
