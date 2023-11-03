@@ -8,6 +8,7 @@ import com.example.soloblog.entity.UserRoleEnum;
 import com.example.soloblog.jwt.JwtUtil;
 import com.example.soloblog.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +23,8 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
 
     // ADMIN_TOKEN
-    private final String ADMIN_TOKEN = "AAABnvxRVklrnYxKZ0aHgTBcXukeZygoC";
+    @Value("${ADMIN_TOKEN}")
+    private String ADMIN_TOKEN;
 
     public ResponseEntity<RestApiResponseDto> signup(UserRequestDto userDto) {
         try {
