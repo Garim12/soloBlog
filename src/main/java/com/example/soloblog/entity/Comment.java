@@ -20,9 +20,6 @@ public class Comment extends TimeStamped {
     @Column(nullable = false, length = 3000)
     private String content;
 
-    @Column
-    private String emoji;
-
     @ManyToOne
     @JoinColumn(name = "post_id")
     private Post post;
